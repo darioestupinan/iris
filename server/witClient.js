@@ -2,8 +2,8 @@
 
 const request = require("superagent");
 
-function handleWithResponse(res) {
-    console.log(res);
+function handleWitResponse(res) {
+    return res.entities;
 }
 
 module.exports = function witClient(token) {
@@ -11,8 +11,7 @@ module.exports = function witClient(token) {
 
         request.get("https://api.wit.ai/message")
             .set("Authorization", "Bearer " + token)
-            .query({v: "20180818"})
-            .query({q: message})
+            .query({v: "20180818", q: message})
             .end((err, res) => {
                 if (err) {
                     return cb(err);
@@ -21,13 +20,9 @@ module.exports = function witClient(token) {
                     return cb('Expected status 200 but got ' + res.statusCode);
                 }
 
-                const witResponse = handleWithResponse(res.body);
-            })
-
-        ;
-
-        console.log('ask:' + message);
-        console.log('token:' + token);
+                const witResponse = handleWitResponse(res.body);
+                return cb(null, witResponse);
+            });
     };
 
     return {
