@@ -148,9 +148,7 @@ fabric.properties
 .vscode/settings.json
 
 #ignore .config files
-config.json
-"./package-lock.json" 
-".idea/**" 
+/config.json 
 /.idea/iris.iml
 /.idea/misc.xml
 /.idea/modules.xml
