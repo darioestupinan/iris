@@ -149,3 +149,10 @@ fabric.properties
 
 #ignore .config files
 config.json
+"./package-lock.json" 
+".idea/**" 
+/.idea/iris.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/package-lock.json
