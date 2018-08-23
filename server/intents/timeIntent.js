@@ -1,5 +1,10 @@
 'use strict';
 const request = require('superagent');
+const config = require('../../config');
+
+function getLocationEndPoint(location){
+    return `${config.endpoints.irisTime}${location}`;
+}
 
 module.exports.process = function process(intentData, cb) {
 
@@ -10,10 +15,9 @@ module.exports.process = function process(intentData, cb) {
         return new cb(new Error('Missing location in time intent'));
     }
     const location = intentData.location[0].value;
-    console.log(location);
     request
-        .get(`http://localhost:3001/service/${location}`, (err, res) => {
-            if (err || err.statusCode !== 200 || !res.body.result) {
+        .get(getLocationEndPoint(location), (err, res) => {
+            if (err || res.statusCode !== 200 || !res.body.result) {
                 console.log(err);
                 console.log(res.body);
 

@@ -1,6 +1,7 @@
 'use strict';
 
 const request = require("superagent");
+const config = require('../config');
 
 function handleWitResponse(res) {
     return res.entities;
@@ -9,7 +10,7 @@ function handleWitResponse(res) {
 module.exports = function witClient(token) {
     const ask = function ask(message, cb) {
 
-        request.get("https://api.wit.ai/message")
+        request.get(config.endpoints.apiWit)
             .set("Authorization", "Bearer " + token)
             .query({v: "20180818", q: message})
             .end((err, res) => {
