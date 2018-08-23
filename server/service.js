@@ -3,7 +3,7 @@
 const express = require('express');
 const service = express();
 
-service.get('/service/:intent/:port', (req, res, next) => {
+service.put('/service/:intent/:port', (req, res, next) => {
     const serviceIntent = req.params.intent;
     const servicePort = req.params.port;
 
