@@ -155,3 +155,4 @@ fabric.properties
 /.idea/vcs.xml
 /package-lock.json
 /.idea/jsLibraryMappings.xml
+/package-lock.json
