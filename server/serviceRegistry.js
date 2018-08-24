@@ -15,7 +15,7 @@ class ServiceRegistry {
 
         if (!this._services[key]) {
             this._services[key] = {
-                timestamp: Math.floor(new moment().valueOf()),
+                timestamp: new moment(),
                 ip: ip,
                 port: port,
                 intent: intent
@@ -23,13 +23,13 @@ class ServiceRegistry {
 
         }
         else {
-            this._services[key].timestamp = new moment().valueOf();
+            this._services[key].timestamp = new moment();
         }
         console.log(`service for ${JSON.stringify(this._services[key])}`);
         this._cleanup();
     }
 
-    remove(intent, ip, port){
+    remove(intent, ip, port) {
         const key = intent+ip+port;
 
         delete this._services[key];
@@ -37,20 +37,21 @@ class ServiceRegistry {
 
     get(intent) {
         this._cleanup();
+
         for(let key in this._services) {
             if (this._services[key].intent === intent){
                 return this._services[key];
             }
-        }
 
+        }
         return null;
     }
 
     _cleanup() {
-        const now = new moment().valueOf();
+        const now = new moment();
 
         for(let key in this._services) {
-            if (this._services[key].timestamp + this._timeout < now){
+            if (this._services[key].timestamp.add(this._timeout, 's') < now){
                 console.log(`removed services for intent ${JSON.stringify(this._services[key])}`);
                 delete this._services[key];
             }
